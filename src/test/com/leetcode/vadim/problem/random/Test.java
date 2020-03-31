@@ -1,12 +1,10 @@
-package test;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+package com.leetcode.vadim.problem.random;
+
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class Test {
-    static final Logger LOGGER = LogManager.getLogger(TextReaderTest.class);
+    /*static final Logger LOGGER = LogManager.getLogger(TextReaderTest.class);
 
     static final String INPUT = "input/input.txt";
     Symbols mainText = new Text();
@@ -38,5 +36,5 @@ public class Test {
     public void readerTest4(){
         String str = mainText.toString();
         Assert.assertEquals("ain",str.substring(95,98));
-    }
+    }*/
 }

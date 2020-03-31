@@ -1,4 +1,4 @@
-package problem;
+package com.leetcode.vadim.problem.random;
 
 /**
  * Created by Linaelias Velore on 25.09.2016.

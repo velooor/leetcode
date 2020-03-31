@@ -1,4 +1,4 @@
-package problem;
+package com.leetcode.vadim.problem.random;
 
 /**
  * Created by Lagarde on 29.09.2016.

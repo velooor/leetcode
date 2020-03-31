@@ -1,4 +1,4 @@
-package problem;
+package com.leetcode.vadim.problem.random;
 
 import java.io.*;
 import java.util.Scanner;

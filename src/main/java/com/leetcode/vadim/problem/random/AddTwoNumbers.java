@@ -1,4 +1,4 @@
-package problem;
+package com.leetcode.vadim.problem.random;
 
 public class AddTwoNumbers {
     public static class ListNode {
