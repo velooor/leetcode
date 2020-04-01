@@ -273,6 +273,7 @@ public class Solution {
     // 79. Word Search
     // https://leetcode.com/problems/word-search/
     public boolean exist(char[][] board, String word) {
+        return true;
 
     }
 
