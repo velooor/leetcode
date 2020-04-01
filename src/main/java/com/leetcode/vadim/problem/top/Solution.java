@@ -304,8 +304,8 @@ public class Solution {
 
     public boolean existSecondSolution(char[][] board, String word) {
         char[] w = word.toCharArray();
-        for (int y=0; y<board.length; y++) {
-            for (int x=0; x<board[y].length; x++) {
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board[y].length; x++) {
                 if (exist(board, y, x, w, 0)) return true;
             }
         }
@@ -314,18 +314,45 @@ public class Solution {
 
     private boolean exist(char[][] board, int y, int x, char[] word, int i) {
         if (i == word.length) return true;
-        if (y<0 || x<0 || y == board.length || x == board[y].length) return false;
+        if (y < 0 || x < 0 || y == board.length || x == board[y].length) return false;
         if (board[y][x] != word[i]) return false;
         board[y][x] ^= 256;
-        boolean exist = exist(board, y, x+1, word, i+1)
-                || exist(board, y, x-1, word, i+1)
-                || exist(board, y+1, x, word, i+1)
-                || exist(board, y-1, x, word, i+1);
+        boolean exist = exist(board, y, x + 1, word, i + 1)
+                || exist(board, y, x - 1, word, i + 1)
+                || exist(board, y + 1, x, word, i + 1)
+                || exist(board, y - 1, x, word, i + 1);
         board[y][x] ^= 256;
         return exist;
     }
 
+
+    // 91. Decode Ways
+    // https://leetcode.com/problems/decode-ways/
+    public static int numDecodings(String s) {
+        if(s == null || s.length() == 0) {
+            return 0;
+        }
+        int n = s.length();
+        int[] dp = new int[n+1];
+        dp[0] = 1;
+        dp[1] = s.charAt(0) != '0' ? 1 : 0;
+        for(int i = 2; i <= n; i++) {
+            int first = Integer.valueOf(s.substring(i-1, i));
+            int second = Integer.valueOf(s.substring(i-2, i));
+            if(first >= 1 && first <= 9) {
+                dp[i] += dp[i-1];
+            }
+            if(second >= 10 && second <= 26) {
+                dp[i] += dp[i-2];
+            }
+        }
+        return dp[n];
+    }
+
+
     public static void main(String[] args) {
+        System.out.println(numDecodings("12120"));
+
         //subsets(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0});
         /*System.out.println(exist(new char[][]{
                 {'F', 'Y', 'C', 'E', 'N', 'R', 'D'},
@@ -337,10 +364,7 @@ public class Solution {
                 {'H', 'P', 'O', 'L', 'A', 'N', 'O'}}, "poland"));*/
 
 
-
-
-        System.out.println(exist(new char[][]{
-                {'a','a','a','a'},{'a','a','a','a'},{'a','a','a','a'}}, "aaaaaaaaaaaaa"));
+        //System.out.println(exist(new char[][]{{'a', 'a', 'a', 'a'}, {'a', 'a', 'a', 'a'}, {'a', 'a', 'a', 'a'}}, "aaaaaaaaaaaaa"));
     }
 
 
