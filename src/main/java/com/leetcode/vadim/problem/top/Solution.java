@@ -263,7 +263,7 @@ public class Solution {
         res.add(new ArrayList<>(curr));
         for (int i = k; i < nums.length; i++) {
             curr.add(nums[i]);
-            gen(curr, res, nums, i+1);
+            gen(curr, res, nums, i + 1);
             curr.remove(curr.size() - 1);
         }
 
@@ -272,13 +272,75 @@ public class Solution {
 
     // 79. Word Search
     // https://leetcode.com/problems/word-search/
-    public boolean exist(char[][] board, String word) {
-        return true;
+    public static boolean exist(char[][] board, String word) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (existGen(board, new int[board.length][board[i].length], word, 0, i, j))
+                    return true;
+            }
+        }
+        return false;
 
     }
 
+    private static boolean existGen(char[][] board, int[][] flag, String word, int w, int i, int j) {
+        if (flag[i][j] == 1) return false;
+        if (w >= word.length() || board[i][j] != word.charAt(w)) return false;
+        if (board[i][j] == word.charAt(w) && w == word.length() - 1)
+            return true;
+
+
+        int[][] newFlag = new int[flag.length][flag[i].length];
+        for (int k = 0; k < flag.length; k++) newFlag[k] = Arrays.copyOf(flag[k], flag[k].length);
+        newFlag[i][j] = 1;
+
+        if (j + 1 < board[i].length && existGen(board, newFlag, word, w + 1, i, j + 1)) return true;
+        if (j - 1 >= 0 && existGen(board, newFlag, word, w + 1, i, j - 1)) return true;
+        if (i + 1 < board.length && existGen(board, newFlag, word, w + 1, i + 1, j)) return true;
+        if (i - 1 >= 0 && existGen(board, newFlag, word, w + 1, i - 1, j)) return true;
+
+        return false;
+    }
+
+    public boolean existSecondSolution(char[][] board, String word) {
+        char[] w = word.toCharArray();
+        for (int y=0; y<board.length; y++) {
+            for (int x=0; x<board[y].length; x++) {
+                if (exist(board, y, x, w, 0)) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean exist(char[][] board, int y, int x, char[] word, int i) {
+        if (i == word.length) return true;
+        if (y<0 || x<0 || y == board.length || x == board[y].length) return false;
+        if (board[y][x] != word[i]) return false;
+        board[y][x] ^= 256;
+        boolean exist = exist(board, y, x+1, word, i+1)
+                || exist(board, y, x-1, word, i+1)
+                || exist(board, y+1, x, word, i+1)
+                || exist(board, y-1, x, word, i+1);
+        board[y][x] ^= 256;
+        return exist;
+    }
+
     public static void main(String[] args) {
-        subsets(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0});
+        //subsets(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0});
+        /*System.out.println(exist(new char[][]{
+                {'F', 'Y', 'C', 'E', 'N', 'R', 'D'},
+                {'K', 'L', 'N', 'F', 'I', 'N', 'U'},
+                {'A', 'A', 'A', 'R', 'A', 'H', 'R'},
+                {'N', 'D', 'K', 'L', 'P', 'N', 'E'},
+                {'A', 'L', 'A', 'N', 'S', 'A', 'P'},
+                {'O', 'O', 'G', 'O', 'T', 'P', 'N'},
+                {'H', 'P', 'O', 'L', 'A', 'N', 'O'}}, "poland"));*/
+
+
+
+
+        System.out.println(exist(new char[][]{
+                {'a','a','a','a'},{'a','a','a','a'},{'a','a','a','a'}}, "aaaaaaaaaaaaa"));
     }
 
 
