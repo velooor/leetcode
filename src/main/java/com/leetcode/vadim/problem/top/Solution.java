@@ -250,8 +250,27 @@ public class Solution {
         }
     }
 
+    // 78. Subsets
+    // https://leetcode.com/problems/subsets/
+    public static List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums);
+        gen(new ArrayList<>(), res, nums, 0);
+        return res;
+    }
+
+    public static void gen(List<Integer> curr, List<List<Integer>> res, int[] nums, int k) {
+        res.add(new ArrayList<>(curr));
+        for (int i = k; i < nums.length; i++) {
+            curr.add(nums[i]);
+            gen(curr, res, nums, i+1);
+            curr.remove(curr.size() - 1);
+        }
+
+    }
+
     public static void main(String[] args) {
-        sortColors(new int[]{2, 0, 2, 1, 1, 0});
+        subsets(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0});
     }
 
 
