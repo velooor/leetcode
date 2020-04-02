@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 public class Solution {
 
@@ -330,24 +331,120 @@ public class Solution {
     // https://leetcode.com/problems/decode-ways/
     // # dynamic din dp dynamic programming
     public static int numDecodings(String s) {
-        if(s == null || s.length() == 0) {
+        if (s == null || s.length() == 0) {
             return 0;
         }
         int n = s.length();
-        int[] dp = new int[n+1];
+        int[] dp = new int[n + 1];
         dp[0] = 1;
         dp[1] = s.charAt(0) != '0' ? 1 : 0;
-        for(int i = 2; i <= n; i++) {
-            int first = Integer.parseInt(s.substring(i-1, i));
-            int second = Integer.parseInt(s.substring(i-2, i));
-            if(first >= 1 && first <= 9) {
-                dp[i] += dp[i-1];
+        for (int i = 2; i <= n; i++) {
+            int first = Integer.parseInt(s.substring(i - 1, i));
+            int second = Integer.parseInt(s.substring(i - 2, i));
+            if (first >= 1 && first <= 9) {
+                dp[i] += dp[i - 1];
             }
-            if(second >= 10 && second <= 26) {
-                dp[i] += dp[i-2];
+            if (second >= 10 && second <= 26) {
+                dp[i] += dp[i - 2];
             }
         }
         return dp[n];
+    }
+
+    // 94. Binary Tree Inorder Traversal
+    // https://leetcode.com/problems/binary-tree-inorder-traversal/
+
+    /**
+     * Definition for a binary tree node.
+     * public class TreeNode {
+     * int val;
+     * TreeNode left;
+     * TreeNode right;
+     * TreeNode(int x) { val = x; }
+     * }
+     */
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
+
+    public static List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        trav(root, result);
+        return result;
+    }
+
+    private static void trav(TreeNode root, List<Integer> result) {
+        if (root == null) return;
+        if (root.left != null) trav(root.left, result);
+        result.add(root.val);
+        if (root.right != null) trav(root.right, result);
+    }
+
+    public static List<Integer> inorderTraversal1(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        if (root == null) return result;
+
+        while (true) {
+            if (root.left != null) {
+                stack.push(root);
+                root = root.left;
+                continue;
+            }
+            if (root.val != Integer.MIN_VALUE) {
+                result.add(root.val);
+                root.val = Integer.MIN_VALUE;
+            }
+            if (root.right != null) {
+                stack.push(root);
+                root = root.right;
+            } else {
+                if (root.left == null && stack.isEmpty()) return result;
+                if (!stack.isEmpty()) {
+                    TreeNode parent = stack.pop();
+                    if (root == parent.right) parent.right = null;
+                    if (root == parent.left) parent.left = null;
+                    root = parent;
+                }
+            }
+        }
+    }
+
+    public List<Integer> inorderTraversal2(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode curr = root;
+        while (curr != null || !stack.isEmpty()) {
+            while (curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+            curr = stack.pop();
+            res.add(curr.val);
+            curr = curr.right;
+        }
+        return res;
+    }
+
+    // 98. Validate Binary Search Tree
+    // https://leetcode.com/problems/validate-binary-search-tree/
+    public boolean isValidBST(TreeNode root) {
+        return isValidBSTGen(root, null, null);
+    }
+
+    private static boolean isValidBSTGen(TreeNode root, Integer min, Integer max) {
+        if (root == null) return true;
+        if (max != null && root.val >= max) return false;
+        if (min != null && root.val <= min) return false;
+
+        if(!isValidBSTGen(root.right, root.val, max)) return false;
+        return isValidBSTGen(root.left, min, root.val);
     }
 
 
