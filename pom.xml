@@ -4,10 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.leetcode.velooor</groupId>
-    <artifactId>velooor-problems</artifactId>
+    <artifactId>velooor-leetcode-problems</artifactId>
     <version>0.21.0-SNAPSHOT</version>
 
     <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.jdk>11</version.jdk>
     </properties>
