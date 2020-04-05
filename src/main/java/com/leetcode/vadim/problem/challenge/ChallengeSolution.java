@@ -107,7 +107,7 @@ public class ChallengeSolution {
         if (nums == null || nums.length == 0) return;
 
         int insertPos = 0;
-        for (int num: nums) {
+        for (int num : nums) {
             if (num != 0) nums[insertPos++] = num;
         }
 
@@ -117,8 +117,42 @@ public class ChallengeSolution {
     }
 
 
+    // 122. Best Time to Buy and Sell Stock II
+    // https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+    public static int maxProfit(int[] prices) {
+        if (prices == null || prices.length <= 1) return 0;
+        int n = prices.length;
+
+        boolean bought = false;
+        int bi = 0, profit = 0;
+        for (int i = 1; i < n; i++) {
+            if (!bought && prices[i] > prices[i - 1]) {
+                bought = true;
+                bi = i - 1;
+            } else if (bought && prices[i] < prices[i - 1]) {
+                bought = false;
+                profit += prices[i - 1] - prices[bi];
+            }
+        }
+        if (bought) profit += prices[n - 1] - prices[bi];
+
+        return profit;
+    }
+
+
     public static void main(String[] args) {
-        int[] res;
+        System.out.println(7 == maxProfit(new int[]{7, 1, 5, 3, 6, 4})); // 7
+        System.out.println(3 == maxProfit(new int[]{1, 2, 3, 4})); // 3
+        System.out.println(0 == maxProfit(new int[]{4, 3, 2, 1})); // 0
+        System.out.println(5 == maxProfit(new int[]{0, 5, 0})); // 5
+        System.out.println(5 == maxProfit(new int[]{5, 0, 5})); // 5
+        System.out.println(99 == maxProfit(new int[]{11, 1, 1, 100})); // 99
+        System.out.println(0 == maxProfit(new int[]{1})); // 0
+        System.out.println(0 == maxProfit(new int[]{})); // 0
+        System.out.println(0 == maxProfit(null)); // 0
+
+
+        /*int[] res;
 
         res = new int[]{1, 0, 2};
         moveZeroes(res);
@@ -163,7 +197,7 @@ public class ChallengeSolution {
 
         res = new int[]{0, 0, 1, 0, 0, 2, 3};
         moveZeroes(res);
-        System.out.println(Arrays.toString(res));
+        System.out.println(Arrays.toString(res));*/
 
         //System.out.println(maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
         //System.out.println(isHappy1(19));
