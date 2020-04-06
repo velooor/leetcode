@@ -137,6 +137,15 @@ public class ChallengeSolution {
         if (bought) profit += prices[n - 1] - prices[bi];
 
         return profit;
+
+        /*
+        int maxprofit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] > prices[i - 1])
+                maxprofit += prices[i] - prices[i - 1];
+        }
+        return maxprofit;
+         */
     }
 
 
