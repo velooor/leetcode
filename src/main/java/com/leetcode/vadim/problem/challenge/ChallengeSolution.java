@@ -164,6 +164,29 @@ public class ChallengeSolution {
         return new ArrayList<>(ans.values());
     }
 
+    // Counting Elements
+    public int countElements(int[] arr) {
+        int res=0, currDup = 1;
+        Arrays.sort( arr );
+        for(int i = 0; i<arr.length-1; i++) {
+            int t = arr[i+1] - arr[i];
+            if(t == 0) {
+                currDup++;
+            }
+
+            if(t == 1) {
+                res+=currDup;
+                currDup =1;
+            }
+            if(t>1) {
+                currDup=1;
+            }
+        }
+        return res;
+    }
+
+    // todo add
+
     public static void main(String[] args) {
         System.out.println(7 == maxProfit(new int[]{7, 1, 5, 3, 6, 4})); // 7
         System.out.println(3 == maxProfit(new int[]{1, 2, 3, 4})); // 3
