@@ -188,6 +188,23 @@ public class ChallengeSolution {
     // todo add
 
 
+    // 543. Diameter of Binary Tree
+    // https://leetcode.com/problems/diameter-of-binary-tree/solution/
+    int ans;
+    public int diameterOfBinaryTree(TreeNode root) {
+        ans = 1;
+        depth(root);
+        return ans - 1;
+    }
+    public int depth(TreeNode node) {
+        if (node == null) return 0;
+        int L = depth(node.left);
+        int R = depth(node.right);
+        ans = Math.max(ans, L+R+1);
+        return Math.max(L, R) + 1;
+    }
+
+
     public static void main(String[] args) {
         System.out.println(7 == maxProfit(new int[]{7, 1, 5, 3, 6, 4})); // 7
         System.out.println(3 == maxProfit(new int[]{1, 2, 3, 4})); // 3
