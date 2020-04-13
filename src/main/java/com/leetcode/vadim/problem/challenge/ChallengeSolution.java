@@ -1,5 +1,7 @@
 package com.leetcode.vadim.problem.challenge;
 
+import com.leetcode.vadim.problem.top.Solution;
+
 import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -202,6 +204,25 @@ public class ChallengeSolution {
         int R = depth(node.right);
         ans = Math.max(ans, L+R+1);
         return Math.max(L, R) + 1;
+    }
+
+    /**
+     * Definition for a binary tree node.
+     * public class TreeNode {
+     * int val;
+     * TreeNode left;
+     * TreeNode right;
+     * TreeNode(int x) { val = x; }
+     * }
+     */
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
     }
 
 
