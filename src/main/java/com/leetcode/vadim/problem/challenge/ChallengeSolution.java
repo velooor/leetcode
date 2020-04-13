@@ -187,6 +187,7 @@ public class ChallengeSolution {
 
     // todo add
 
+
     public static void main(String[] args) {
         System.out.println(7 == maxProfit(new int[]{7, 1, 5, 3, 6, 4})); // 7
         System.out.println(3 == maxProfit(new int[]{1, 2, 3, 4})); // 3
