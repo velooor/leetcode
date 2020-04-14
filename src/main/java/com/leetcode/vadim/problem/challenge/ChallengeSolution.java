@@ -168,20 +168,20 @@ public class ChallengeSolution {
 
     // Counting Elements
     public int countElements(int[] arr) {
-        int res=0, currDup = 1;
-        Arrays.sort( arr );
-        for(int i = 0; i<arr.length-1; i++) {
-            int t = arr[i+1] - arr[i];
-            if(t == 0) {
+        int res = 0, currDup = 1;
+        Arrays.sort(arr);
+        for (int i = 0; i < arr.length - 1; i++) {
+            int t = arr[i + 1] - arr[i];
+            if (t == 0) {
                 currDup++;
             }
 
-            if(t == 1) {
-                res+=currDup;
-                currDup =1;
+            if (t == 1) {
+                res += currDup;
+                currDup = 1;
             }
-            if(t>1) {
-                currDup=1;
+            if (t > 1) {
+                currDup = 1;
             }
         }
         return res;
@@ -193,16 +193,18 @@ public class ChallengeSolution {
     // 543. Diameter of Binary Tree
     // https://leetcode.com/problems/diameter-of-binary-tree/solution/
     int ans;
+
     public int diameterOfBinaryTree(TreeNode root) {
         ans = 1;
         depth(root);
         return ans - 1;
     }
+
     public int depth(TreeNode node) {
         if (node == null) return 0;
         int L = depth(node.left);
         int R = depth(node.right);
-        ans = Math.max(ans, L+R+1);
+        ans = Math.max(ans, L + R + 1);
         return Math.max(L, R) + 1;
     }
 
@@ -223,6 +225,28 @@ public class ChallengeSolution {
         TreeNode(int x) {
             val = x;
         }
+    }
+
+
+    // Perform String Shifts
+    public String stringShift(String s, int[][] shift) {
+        if (s.length() <= 1) return s;
+        int left = 0, right = 0;
+        for (int[] ints : shift) {
+            if (ints[0] == 0) left+=ints[1];
+            else right+=ints[1];
+        }
+
+        if (left - right > 0) {
+            for (int i = 0; i < left - right; i++) {
+                s = s.substring(1) + s.charAt(0);
+            }
+        } else {
+            for (int i = 0; i < right - left; i++) {
+                s = s.charAt(s.length() - 1) + s.substring(0, s.length() - 1);
+            }
+        }
+        return s;
     }
 
 
