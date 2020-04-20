@@ -364,6 +364,27 @@ public class ChallengeSolution {
     }
 
 
+    // 64. Minimum Path Sum
+    // https://leetcode.com/problems/minimum-path-sum/
+    public int minPathSum(int[][] grid) {
+
+        int i, j;
+        for(i=0;i<grid.length;i++){
+            for(j=0;j<grid[i].length;j++){
+                if(i==0 && j>0){
+                    grid[i][j] = grid[i][j] + grid[i][j-1];
+                }
+                else if(j==0 && i>0){
+                    grid[i][j] = grid[i][j] + grid[i-1][j];
+                }
+                else if(i!=0 && j!=0){
+                    grid[i][j] = grid[i][j] + Math.min(grid[i][j-1], grid[i-1][j]);
+                }
+            }
+        }
+        return grid[grid.length-1][grid[0].length-1];
+    }
+
     // 33. Search in Rotated Sorted Array
     // https://leetcode.com/problems/search-in-rotated-sorted-array/
     public int search(int[] nums, int target) {
@@ -405,11 +426,6 @@ public class ChallengeSolution {
         root.right = bstFromPreorder(A, bound);
         return root;
     }
-
-
-
-
-
 
     public static void main(String[] args) {
         System.out.println(7 == maxProfit(new int[]{7, 1, 5, 3, 6, 4})); // 7
