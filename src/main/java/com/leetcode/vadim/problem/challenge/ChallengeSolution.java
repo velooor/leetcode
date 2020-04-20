@@ -363,6 +363,54 @@ public class ChallengeSolution {
         DFSMarking(grid, i, j - 1);
     }
 
+
+    // 33. Search in Rotated Sorted Array
+    // https://leetcode.com/problems/search-in-rotated-sorted-array/
+    public int search(int[] nums, int target) {
+        int start = 0;
+        int end = nums.length - 1;
+        while (start <= end){
+            int mid = (start + end) / 2;
+            if (nums[mid] == target)
+                return mid;
+
+            if (nums[start] <= nums[mid]){
+                if (target < nums[mid] && target >= nums[start])
+                    end = mid - 1;
+                else
+                    start = mid + 1;
+            }
+
+            if (nums[mid] <= nums[end]){
+                if (target > nums[mid] && target <= nums[end])
+                    start = mid + 1;
+                else
+                    end = mid - 1;
+            }
+        }
+        return -1;
+    }
+
+    // 1008. Construct Binary Search Tree from Preorder Traversal
+    // https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
+    int i = 0;
+    public TreeNode bstFromPreorder(int[] A) {
+        return bstFromPreorder(A, Integer.MAX_VALUE);
+    }
+
+    public TreeNode bstFromPreorder(int[] A, int bound) {
+        if (i == A.length || A[i] > bound) return null;
+        TreeNode root = new TreeNode(A[i++]);
+        root.left = bstFromPreorder(A, root.val);
+        root.right = bstFromPreorder(A, bound);
+        return root;
+    }
+
+
+
+
+
+
     public static void main(String[] args) {
         System.out.println(7 == maxProfit(new int[]{7, 1, 5, 3, 6, 4})); // 7
         System.out.println(3 == maxProfit(new int[]{1, 2, 3, 4})); // 3
