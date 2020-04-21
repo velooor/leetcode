@@ -427,6 +427,20 @@ public class ChallengeSolution {
         return root;
     }
 
+
+    // Leftmost Column with at Least a One
+    /*public int leftMostColumnWithOne(BinaryMatrix binaryMatrix) {
+        if(binaryMatrix == null || binaryMatrix.dimensions().get(0) == 0) return -1;
+
+        int i=binaryMatrix.dimensions().get(0)-1, j = binaryMatrix.dimensions().get(1)-1;
+        while(i>=0 && j>=0){
+            if(binaryMatrix.get(i,j) == 0) i--;
+            else j--;
+        }
+
+        return j==binaryMatrix.dimensions().get(1)-1?-1:j+1;
+    }*/
+
     public static void main(String[] args) {
         System.out.println(7 == maxProfit(new int[]{7, 1, 5, 3, 6, 4})); // 7
         System.out.println(3 == maxProfit(new int[]{1, 2, 3, 4})); // 3
