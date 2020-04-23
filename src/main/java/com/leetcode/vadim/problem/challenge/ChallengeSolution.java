@@ -459,6 +459,21 @@ public class ChallengeSolution {
         return count;
     }
 
+    // 201. Bitwise AND of Numbers Range
+    // https://leetcode.com/problems/bitwise-and-of-numbers-range/
+    public int rangeBitwiseAnd(int m, int n) {
+        if(m == 0){
+            return 0;
+        }
+        int moveFactor = 1;
+        while(m != n){
+            m >>= 1;
+            n >>= 1;
+            moveFactor <<= 1;
+        }
+        return m * moveFactor;
+    }
+
     public static void main(String[] args) {
         System.out.println(7 == maxProfit(new int[]{7, 1, 5, 3, 6, 4})); // 7
         System.out.println(3 == maxProfit(new int[]{1, 2, 3, 4})); // 3
