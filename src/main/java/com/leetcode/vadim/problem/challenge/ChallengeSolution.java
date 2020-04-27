@@ -601,6 +601,9 @@ public class ChallengeSolution {
 
 
 
+    // https://leetcode.com/problems/longest-common-subsequence/
+    // https://leetcode.com/problems/maximal-square/
+
 
 
     public static void main(String[] args) {
