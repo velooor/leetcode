@@ -606,6 +606,43 @@ public class ChallengeSolution {
 
 
 
+    int maxValue;
+
+    public int maxPathSum(TreeNode root) {
+        maxValue = Integer.MIN_VALUE;
+        maxPathDown(root);
+        return maxValue;
+    }
+
+    private int maxPathDown(TreeNode node) {
+        if (node == null) return 0;
+        int left = Math.max(0, maxPathDown(node.left));
+        int right = Math.max(0, maxPathDown(node.right));
+        maxValue = Math.max(maxValue, left + right + node.val);
+        return Math.max(left, right) + node.val;
+    }
+
+
+
+
+
+
+
+    public boolean isValidSequence(TreeNode root, int[] arr) {
+        return dfs(root, arr, 0);
+    }
+
+    private boolean dfs(TreeNode n, int[] a, int depth) {
+        if (n == null || depth >= a.length || a[depth] != n.val) { // base cases.
+            return false;
+        }// key base case: a leave found.
+        if (n.left == null && n.right == null) { // credit to @The_Legend_ for making the code clean
+            return depth + 1 == a.length; // valid sequence?
+        }
+        return dfs(n.left, a, depth + 1) || dfs(n.right, a, depth + 1); // recurse to the children.
+    }
+
+
     public static void main(String[] args) {
         System.out.println(7 == maxProfit(new int[]{7, 1, 5, 3, 6, 4})); // 7
         System.out.println(3 == maxProfit(new int[]{1, 2, 3, 4})); // 3
